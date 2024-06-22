@@ -4,7 +4,7 @@
 
 [![pub package](https://img.shields.io/pub/v/mm_nrc_kit.svg)](https://pub.dev/packages/mm_nrc_kit)
 
-<img src="https://github.com/yayyar/mm_nrc_kit/blob/main/testing/mm_nrc_kit_testing.gif" width="390" height="800" />
+![image](testing/mm_nrc_kit_testing.gif.gif)
 
 ## Usage
 
@@ -16,6 +16,16 @@ import 'package:mm_nrc_kit/mm_nrc_kit.dart';
 ```
 
 3. Example
+```dart
+NRCField(
+  onCompleted: (value) {
+    debugPrint("onCompleted : $value");
+  },
+  onChanged: (value) {
+    debugPrint("onChanged : $value");
+  },
+)
+```
 ```dart
 NRCField(
     nrcValue: "8/MaKaNa(N)000000",
