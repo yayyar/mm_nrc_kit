@@ -1,7 +1,7 @@
 name: mm_nrc_kit
 description: "Myanmar NRC UI Kit"
 version: 0.0.1
-homepage:
+homepage: https://github.com/yayyar/mm_nrc_kit
 
 environment:
   sdk: '>=3.2.4 <4.0.0'
