@@ -4,7 +4,7 @@
 
 [![pub package](https://img.shields.io/pub/v/mm_nrc_kit.svg)](https://pub.dev/packages/mm_nrc_kit)
 
-![image](testing/mm_nrc_kit_testing.gif.gif)
+![image](testing/mm_nrc_kit_testing.gif)
 
 ## Usage
 
