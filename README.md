@@ -28,10 +28,10 @@ NRCField(
     pickerColor: const Color(0xffeeeeee),
     pickerItemColor: Colors.black,
     onCompleted: (value) {
-      print("onCompleted : $value");
+      debugPrint("onCompleted : $value");
     },
     onChanged: (value) {
-      print("onChanged : $value");
+      debugPrint("onChanged : $value");
     },
   )
 ```
