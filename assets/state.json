@@ -1,0 +1,194 @@
+[
+    {
+        "id": "bTuNIfLfchNvk1N_",
+        "code": "KACHIN",
+        "number": {
+            "en": "--",
+            "mm": "--"
+        },
+        "name": {
+            "en": "--",
+            "mm": "--"
+        }
+    },
+    {
+        "id": "bTuNIfLfchNvk1N_",
+        "code": "KACHIN",
+        "number": {
+            "en": "1",
+            "mm": "၁"
+        },
+        "name": {
+            "en": "KACHIN",
+            "mm": "ကချင်"
+        }
+    },
+    {
+        "id": "ta4SEQoCI0DVTK2T",
+        "code": "KAYAH",
+        "number": {
+            "en": "2",
+            "mm": "၂"
+        },
+        "name": {
+            "en": "KAYAH",
+            "mm": "ကယား"
+        }
+    },
+    {
+        "id": "1dzIVEs684iyjetc",
+        "code": "KAYIN",
+        "number": {
+            "en": "3",
+            "mm": "၃"
+        },
+        "name": {
+            "en": "KAYIN",
+            "mm": "ကရင်"
+        }
+    },
+    {
+        "id": "aVHfHbYrrdNZu9bW",
+        "code": "CHIN",
+        "number": {
+            "en": "4",
+            "mm": "၄"
+        },
+        "name": {
+            "en": "CHIN",
+            "mm": "ချင်း"
+        }
+    },
+    {
+        "id": "EbUz7oziqo6OB5pL",
+        "code": "SAGAING",
+        "number": {
+            "en": "5",
+            "mm": "၅"
+        },
+        "name": {
+            "en": "SAGAING",
+            "mm": "စစ်ကိုင်း"
+        }
+    },
+    {
+        "id": "X8rt_XwuTgAggCju",
+        "code": "TANINTHARYI",
+        "number": {
+            "en": "6",
+            "mm": "၆"
+        },
+        "name": {
+            "en": "TANINTHARYI",
+            "mm": "တနသာရီ"
+        }
+    },
+    {
+        "id": "zBMPM_jGuwbus35I",
+        "code": "BAGO",
+        "number": {
+            "en": "7",
+            "mm": "၇"
+        },
+        "name": {
+            "en": "BAGO",
+            "mm": "ပဲခူး"
+        }
+    },
+    {
+        "id": "u431U0SGuX9lkur-",
+        "code": "MAGWAY",
+        "number": {
+            "en": "8",
+            "mm": "၈"
+        },
+        "name": {
+            "en": "MAGWAY",
+            "mm": "မကွေး"
+        }
+    },
+    {
+        "id": "5PflwjWItczLTOof",
+        "code": "MANDALAY",
+        "number": {
+            "en": "9",
+            "mm": "၉"
+        },
+        "name": {
+            "en": "MANDALAY",
+            "mm": "မန္တလေး"
+        }
+    },
+    {
+        "id": "uQgglJ-AhohYQJNB",
+        "code": "MON",
+        "number": {
+            "en": "10",
+            "mm": "၁၀"
+        },
+        "name": {
+            "en": "MON",
+            "mm": "မွန်"
+        }
+    },
+    {
+        "id": "OfeDuBL9FsUHKi8j",
+        "code": "RAKHINE",
+        "number": {
+            "en": "11",
+            "mm": "၁၁"
+        },
+        "name": {
+            "en": "RAKHINE",
+            "mm": "ရခိုင်"
+        }
+    },
+    {
+        "id": "Zvxm3m8cAwCeDgz1",
+        "code": "YANGON",
+        "number": {
+            "en": "12",
+            "mm": "၁၂"
+        },
+        "name": {
+            "en": "YANGON",
+            "mm": "ရန်ကုန်"
+        }
+    },
+    {
+        "id": "DZ1kOrvrt-7LntG4",
+        "code": "SHAN",
+        "number": {
+            "en": "13",
+            "mm": "၁၃"
+        },
+        "name": {
+            "en": "SHAN",
+            "mm": "ရှမ်း"
+        }
+    },
+    {
+        "id": "tY793VdREy9r5xsl",
+        "code": "AYEYAWADY",
+        "number": {
+            "en": "14",
+            "mm": "၁၄"
+        },
+        "name": {
+            "en": "AYEYAWADY",
+            "mm": "ဧရာ၀တီ"
+        }
+    },
+    {
+        "id": "sH0ybsmxNuxmeOT_",
+        "code": "NAYPYITAW",
+        "number": {
+            "en": "9*",
+            "mm": "၉*"
+        },
+        "name": {
+            "en": "NAYPYITAW",
+            "mm": "နေပြည်တော်"
+        }
+    }
+]
