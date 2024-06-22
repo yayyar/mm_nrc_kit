@@ -4,6 +4,8 @@
 
 [![pub package](https://img.shields.io/pub/v/mm_nrc_kit.svg)](https://pub.dev/packages/mm_nrc_kit)
 
+<img src="https://github.com/yayyar/mm_nrc_kit/blob/main/testing/mm_nrc_kit_testing.gif" width="390" height="800" />
+
 ## Usage
 
 1. To use this plugin, add `mm_nrc_kit` as a [dependency in your pubspec.yaml file](https://flutter.dev/docs/development/platform-integration/platform-channels).
