@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mm_nrc_kit/src/config/colors.dart';
 import 'package:mm_nrc_kit/src/config/constants.dart';
 import 'package:mm_nrc_kit/src/data/mm_nrc.dart';
-import 'package:mm_nrc_kit/src/model/model.dart';
-import 'package:mm_nrc_kit/src/views/nrc_popup_menu.dart';
+import 'package:mm_nrc_kit/src/views/nrc_expansion_tile.dart';
 
 class NRCField extends StatefulWidget {
   /// Creates a Myanmar NRC Field.
@@ -22,9 +21,9 @@ class NRCField extends StatefulWidget {
       this.borderColor,
       this.borderRadius,
       this.contentPadding,
-      this.pickerColor,
       this.pickerItemColor,
-      this.borderWidth});
+      this.borderWidth,
+      this.language = NrcLanguage.myanmar});
   final Function(String?) onCompleted;
   final Function(String?) onChanged;
   final String? nrcValue;
@@ -34,39 +33,46 @@ class NRCField extends StatefulWidget {
   final Color? borderColor;
   final double? borderRadius;
   final EdgeInsetsGeometry? contentPadding;
-  final Color? pickerColor;
   final Color? pickerItemColor;
   final double? borderWidth;
+  final NrcLanguage language;
 
   @override
   State<NRCField> createState() => _MMNRCTextFieldState();
 }
 
 class _MMNRCTextFieldState extends State<NRCField> {
-  final TextEditingController nrcTextEditingController =
-      TextEditingController();
-  String nrcPrefixString = "";
+  String? _nrcValueString;
 
-  void _onCompleted() {
-    if (MmNrc.checkPrefixValid(enNrcString: nrcPrefixString) &&
-        nrcTextEditingController.text.length == 6) {
-      widget.onCompleted("$nrcPrefixString${nrcTextEditingController.text}");
+  void _onChanged(value) {
+    _nrcValueString = value;
+
+    // on changed
+    widget.onChanged(_nrcValueString);
+
+    String? nrcNumber = "";
+    if (value != null) {
+      _nrcValueString!.split(")")[1];
+    } else {
+      nrcNumber = null;
     }
-  }
-
-  void _onChnanged() {
-    widget.onChanged("$nrcPrefixString${nrcTextEditingController.text}");
-    _onCompleted();
+    if (nrcNumber?.length == 6 || nrcNumber == null) {
+      // on completed
+      widget.onCompleted(_nrcValueString);
+    }
   }
 
   @override
   void initState() {
     if (widget.nrcValue != null) {
-      if (MmNrc.checkValid(enNrcString: widget.nrcValue!)) {
-        Nrc nrc = MmNrc.splitNrc(widget.nrcValue!);
-        nrcPrefixString =
-            "${nrc.stateCode}/${nrc.townshipCode}(" "${nrc.nrcType})";
-        nrcTextEditingController.text = nrc.nrcNo;
+      if (widget.language == NrcLanguage.english) {
+        if (MmNrc.checkValid(enNrcString: widget.nrcValue!)) {
+          _nrcValueString = widget.nrcValue!;
+        }
+      } else {
+        if (MmNrc.checkValidMm(mmNrcString: widget.nrcValue!)) {
+          _nrcValueString = widget.nrcValue!;
+        }
       }
     }
     super.initState();
@@ -75,60 +81,21 @@ class _MMNRCTextFieldState extends State<NRCField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 8),
-      height: widget.height ?? 50,
-      width: widget.isExpand ? MediaQuery.of(context).size.width : null,
-      decoration: BoxDecoration(
-          color: widget.backgroundColor ?? Colors.white,
-          border: Border.all(
-              color: widget.borderColor ?? borderColor,
-              width: widget.borderWidth ?? 0.4),
-          borderRadius:
-              BorderRadius.all(Radius.circular(widget.borderRadius ?? 10))),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          NrcPopupMenu(
-              pickerItemColor: widget.pickerItemColor,
-              pickerColor: widget.pickerColor,
-              nrcPrefixString: nrcPrefixString,
-              onSelected: (value) {
-                nrcPrefixString = value;
-                _onChnanged();
-              }),
-          const SizedBox(
-            width: 10,
-          ),
-          SizedBox(
-            width: 80,
-            child: TextFormField(
-              onChanged: (value) {
-                _onChnanged();
-              },
-              controller: nrcTextEditingController,
-              maxLength: 6,
-              keyboardType: TextInputType.number,
-              textAlignVertical: TextAlignVertical.center,
-              style: TextStyle(
-                  color: widget.pickerItemColor ?? Colors.black, fontSize: 20),
-              validator: (value) {
-                if (value?.length != 6 && nrcPrefixString.isEmpty) {
-                  return errorText;
-                } else {
-                  return null;
-                }
-              },
-              decoration: const InputDecoration(
-                  hintText: defaultNrcNumberHint,
-                  hintStyle: TextStyle(color: Colors.grey, letterSpacing: 3),
-                  counterText: "",
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(bottom: 10)),
-            ),
-          )
-        ],
-      ),
-    );
+        padding: widget.contentPadding ??
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+        width: widget.isExpand ? MediaQuery.of(context).size.width : null,
+        decoration: BoxDecoration(
+            color: widget.backgroundColor ?? Colors.white,
+            border: Border.all(
+                color: widget.borderColor ?? borderColor,
+                width: widget.borderWidth ?? 0.4),
+            borderRadius:
+                BorderRadius.all(Radius.circular(widget.borderRadius ?? 10))),
+        child: NrcExpansionTile(
+          language: widget.language,
+          pickerItemColor: widget.pickerItemColor,
+          nrcValueString: _nrcValueString,
+          onChanged: _onChanged,
+        ));
   }
 }

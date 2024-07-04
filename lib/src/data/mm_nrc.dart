@@ -13,9 +13,25 @@ class MmNrc {
     return false;
   }
 
+  static bool checkValidMm({required String mmNrcString}) {
+    RegExp enRegExp = RegExp(NrcData.mmPattern);
+    if (enRegExp.hasMatch(mmNrcString)) {
+      return true;
+    }
+    return false;
+  }
+
   static bool checkPrefixValid({required String enNrcString}) {
     RegExp enRegExp = RegExp(NrcData.enPrefixPattern);
     if (enRegExp.hasMatch(enNrcString)) {
+      return true;
+    }
+    return false;
+  }
+
+  static bool checkPrefixValidMm({required String mmNrcString}) {
+    RegExp enRegExp = RegExp(NrcData.mmPrefixPattern);
+    if (enRegExp.hasMatch(mmNrcString)) {
       return true;
     }
     return false;

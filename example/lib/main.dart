@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'MM NRC Kit',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'SF-Compact-Rounded-Regular',
         appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
         scaffoldBackgroundColor: const Color(0xffEFEEF2),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -47,23 +48,18 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: Center(
-          child: NRCField(
-            nrcValue: "8/MaKaNa(N)000000",
-            height: 50,
-            isExpand: false,
-            backgroundColor: Colors.white,
-            borderColor: Colors.grey,
-            borderWidth: 0.4,
-            borderRadius: 10,
-            pickerColor: const Color(0xffeeeeee),
-            pickerItemColor: Colors.black,
-            onCompleted: (value) {
-              debugPrint("onCompleted : $value");
-            },
-            onChanged: (value) {
-              debugPrint("onChanged : $value");
-            },
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Center(
+            child: NRCField(
+              language: NrcLanguage.myanmar,
+              onCompleted: (value) {
+                debugPrint("onCompleted : $value");
+              },
+              onChanged: (value) {
+                debugPrint("onChanged : $value");
+              },
+            ),
           ),
         ),
       ),
