@@ -41,6 +41,7 @@ class NRCField extends StatefulWidget {
 
 class _MMNRCTextFieldState extends State<NRCField> {
   String? _nrcValueString;
+  String? nrcNumber = "";
 
   void _onChanged(value) {
     _nrcValueString = value;
@@ -48,12 +49,13 @@ class _MMNRCTextFieldState extends State<NRCField> {
     // on changed
     widget.onChanged(_nrcValueString);
 
-    String? nrcNumber = "";
     if (value != null) {
-      _nrcValueString!.split(")")[1];
+      nrcNumber = _nrcValueString!.split(")")[1];
     } else {
       nrcNumber = null;
     }
+    debugPrint("nrcNumber => $nrcNumber");
+    debugPrint("nrcNumberLength => ${nrcNumber?.length}");
     if (nrcNumber?.length == 6 || nrcNumber == null) {
       // on completed
       widget.onCompleted(_nrcValueString);

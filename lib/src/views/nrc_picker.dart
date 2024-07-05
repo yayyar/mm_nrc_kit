@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mm_nrc_kit/src/config/constants.dart';
 import 'package:mm_nrc_kit/src/data/mm_nrc.dart';
 import 'package:mm_nrc_kit/src/model/model.dart';
+import 'package:mm_nrc_kit/src/views/number_keyboard/english_number_keyboard.dart';
+import 'package:mm_nrc_kit/src/views/number_keyboard/myanmar_number_keyboard.dart';
 
 class NrcPicker extends StatefulWidget {
   const NrcPicker(
@@ -38,6 +40,7 @@ class NrcPicker extends StatefulWidget {
 class _NrcPickerState extends State<NrcPicker> {
   final TextEditingController _nrcTextEditingController =
       TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
   int _defaultStateDivisionIndex = 0;
   int _defaultTownshipIndex = 0;
@@ -115,6 +118,10 @@ class _NrcPickerState extends State<NrcPicker> {
         ? defaultNrcClearLabel
         : defaultNrcClearLabelMm;
 
+    _numberTextFieldHint = widget.language == NrcLanguage.english
+        ? defaultNrcNumberHint
+        : defaultNrcNumberHintMm;
+
     _stateDevisionList = widget.stateDevisionList;
     _townshipList = widget.townshipList;
     _typeList = widget.typeList;
@@ -122,6 +129,13 @@ class _NrcPickerState extends State<NrcPicker> {
     _checkNRC();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _nrcTextEditingController.dispose();
+    _focusNode.dispose();
+    super.dispose();
   }
 
   Future<void> _checkNRC() async {
@@ -161,10 +175,6 @@ class _NrcPickerState extends State<NrcPicker> {
         _defaultTownshipIndex = 22;
         _defaultTypeIndex = 0;
       });
-
-      _numberTextFieldHint = widget.language == NrcLanguage.english
-          ? defaultNrcNumberHint
-          : defaultNrcNumberHintMm;
 
       _stateDivision = widget.language == NrcLanguage.english
           ? defaultStateCodeHint
@@ -290,43 +300,51 @@ class _NrcPickerState extends State<NrcPicker> {
         ),
         Container(
           margin: const EdgeInsets.only(top: 8),
-          child: TextFormField(
-            onChanged: _onChanged,
-            controller: _nrcTextEditingController,
-            textDirection: TextDirection.rtl,
-            maxLength: 6,
-            keyboardType: TextInputType.number,
-            textAlignVertical: TextAlignVertical.center,
-            style: TextStyle(
-                letterSpacing: 4.0,
-                color: widget.pickerItemColor ?? Colors.black,
-                fontSize: 16),
-            decoration: InputDecoration(
-              hintText: _numberTextFieldHint,
-              hintTextDirection: TextDirection.ltr,
-              hintStyle: const TextStyle(
-                  letterSpacing: 1.0,
-                  fontSize: 16,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400),
-              counterText: "",
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-              disabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(width: 1, color: Colors.white)),
-              focusedErrorBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(width: 1, color: Colors.red)),
-              errorBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(width: 1, color: Colors.red)),
-              focusedBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(width: 1, color: Colors.deepPurple)),
-              enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(width: 0.5, color: Colors.grey)),
+          child: GestureDetector(
+            onTap: _onNumberTextFieldFocus,
+            child: AbsorbPointer(
+              child: TextFormField(
+                onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                enabled: false,
+                onChanged: _onChanged,
+                controller: _nrcTextEditingController,
+                textDirection: TextDirection.rtl,
+                maxLength: 6,
+                keyboardType: TextInputType.number,
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(
+                    letterSpacing: 4.0,
+                    color: widget.pickerItemColor ?? Colors.black,
+                    fontSize: 16),
+                decoration: InputDecoration(
+                  hintText: _numberTextFieldHint,
+                  hintTextDirection: TextDirection.ltr,
+                  hintStyle: const TextStyle(
+                      letterSpacing: 1.0,
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400),
+                  counterText: "",
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                  disabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide(width: 1, color: Colors.grey)),
+                  focusedErrorBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide(width: 1, color: Colors.red)),
+                  errorBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide(width: 1, color: Colors.red)),
+                  focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide:
+                          BorderSide(width: 1, color: Colors.deepPurple)),
+                  enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide(width: 0.5, color: Colors.grey)),
+                ),
+              ),
             ),
           ),
         ),
@@ -343,5 +361,67 @@ class _NrcPickerState extends State<NrcPicker> {
                 )))
       ],
     );
+  }
+
+  void _handleKeyPress(String key) {
+    if (key == "﹀") {
+      Navigator.of(context).pop();
+      return;
+    }
+    if (key == '⌫') {
+      if (_nrcTextEditingController.text.isNotEmpty) {
+        setState(() {
+          _nrcTextEditingController.text = _nrcTextEditingController.text
+              .substring(0, _nrcTextEditingController.text.length - 1);
+        });
+      }
+    } else {
+      if (_nrcTextEditingController.text.length == 6) {
+        return;
+      }
+      setState(() {
+        _nrcTextEditingController.text += key;
+      });
+    }
+    _onChanged(_nrcTextEditingController.text);
+  }
+
+  void _showMyanmarKeyboard(BuildContext context) {
+    showModalBottomSheet(
+      elevation: 0,
+      barrierColor: Colors.transparent,
+      isDismissible: true,
+      context: context,
+      constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width,
+          maxHeight: MediaQuery.of(context).size.height),
+      builder: (context) {
+        return MyanmarNumberKeyboard(onKeyPressed: _handleKeyPress);
+      },
+    );
+  }
+
+  void _showEnglishKeyboard(BuildContext context) {
+    showModalBottomSheet(
+      elevation: 0,
+      barrierColor: Colors.transparent,
+      isDismissible: true,
+      context: context,
+      constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width,
+          maxHeight: MediaQuery.of(context).size.height),
+      builder: (context) {
+        return EnglishNumberKeyboard(onKeyPressed: _handleKeyPress);
+      },
+    );
+  }
+
+  void _onNumberTextFieldFocus() {
+    FocusScope.of(context).requestFocus(_focusNode);
+    if (widget.language == NrcLanguage.english) {
+      _showEnglishKeyboard(context);
+    } else {
+      _showMyanmarKeyboard(context);
+    }
   }
 }

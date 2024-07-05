@@ -49,26 +49,24 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Center(
-            child: NRCField(
-              language: NrcLanguage.english,
-              nrcValue: "8/MAKANA(N)223344",
-              leadingTitleColor: Colors.black,
-              backgroundColor: Colors.white,
-              pickerItemColor: Colors.black,
-              borderColor: Colors.white,
-              borderRadius: 10,
-              borderWidth: 0.4,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-              onCompleted: (value) {
-                debugPrint("onCompleted : $value");
-              },
-              onChanged: (value) {
-                debugPrint("onChanged : $value");
-              },
-            ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: NRCField(
+            language: NrcLanguage.myanmar,
+            // nrcValue: "8/MAKANA(N)223344",
+            leadingTitleColor: Colors.black,
+            backgroundColor: Colors.white,
+            pickerItemColor: Colors.black,
+            borderColor: Colors.white,
+            borderRadius: 10,
+            borderWidth: 0.4,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            onCompleted: (value) {
+              debugPrint("onCompleted : $value");
+            },
+            onChanged: (value) {
+              debugPrint("onChanged : $value");
+            },
           ),
         ),
       ),
