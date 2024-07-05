@@ -49,11 +49,15 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
   _getStateList() {
     MmNrc.states().then((value) {
       _stateDevisionList = value;
-      MmNrc.getNrcTownshipListByStateId(stateId: defaultStateId).then((value) {
-        setState(() {
-          _townshipList = value;
+      if (_nrcValueString == null) {
+        MmNrc.getNrcTownshipListByStateId(stateId: defaultStateId)
+            .then((value) {
+          setState(() {
+            _townshipList = value;
+            debugPrint("_getStateList _townshipList => $_townshipList");
+          });
         });
-      });
+      }
     });
   }
 
@@ -65,7 +69,11 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
 
           MmNrc.getNrcTownshipListByStateCode(stateCode: nrc.stateCode)
               .then((value) {
-            _townshipList = value;
+            setState(() {
+              _townshipList = value;
+              debugPrint(
+                  "_checkSelectedIndex one _townshipList => $_townshipList");
+            });
             _stateDivisionIndex = _stateDevisionList
                 .indexWhere((element) => element!.number.en == nrc.stateCode);
 
@@ -83,7 +91,11 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
 
           MmNrc.getNrcTownshipListByStateCode(stateCode: nrc.stateCode)
               .then((value) {
-            _townshipList = value;
+            setState(() {
+              _townshipList = value;
+              debugPrint(
+                  "_checkSelectedIndex two _townshipList => $_townshipList");
+            });
             _stateDivisionIndex = _stateDevisionList
                 .indexWhere((element) => element!.number.mm == nrc.stateCode);
 
@@ -107,7 +119,7 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
 
     _getStateList();
     _getTypeList();
-    // _checkSelectedIndex();
+    _checkSelectedIndex();
 
     _trailingLabel = widget.language == NrcLanguage.english
         ? defaultNrcValueLabel
@@ -131,7 +143,8 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
           currentFocus.focusedChild?.unfocus();
         }
         if (isExpand) {
-          _checkSelectedIndex();
+          // _checkSelectedIndex();
+          debugPrint("isExpand _townshipList => $_townshipList");
         }
       },
       leadingTitle: _titleLabel,

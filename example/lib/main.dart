@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Center(
             child: NRCField(
               language: NrcLanguage.english,
-              // nrcValue: "8/ThaYaNa(N)107413",
+              nrcValue: "8/MAKANA(N)223344",
               leadingTitleColor: Colors.black,
               backgroundColor: Colors.white,
               pickerItemColor: Colors.black,
