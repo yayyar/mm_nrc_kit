@@ -60,7 +60,7 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
   void _checkSelectedIndex() {
     if (_nrcValueString != null) {
       if (widget.language == NrcLanguage.english) {
-        if (MmNrc.checkValid(enNrcString: _nrcValueString!)) {
+        if (MmNrc.checkPrefixValid(enNrcString: _nrcValueString!)) {
           Nrc nrc = MmNrc.splitNrc(_nrcValueString!);
 
           MmNrc.getNrcTownshipListByStateCode(stateCode: nrc.stateCode)
@@ -78,7 +78,7 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
           });
         }
       } else {
-        if (MmNrc.checkValidMm(mmNrcString: _nrcValueString!)) {
+        if (MmNrc.checkPrefixValidMm(mmNrcString: _nrcValueString!)) {
           Nrc nrc = MmNrc.splitNrc(_nrcValueString!);
 
           MmNrc.getNrcTownshipListByStateCode(stateCode: nrc.stateCode)
@@ -96,7 +96,8 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
           });
         }
       }
-      debugPrint("$_stateDivisionIndex / $_townshipIndex / $_typeIndex");
+      debugPrint(
+          "ExpansionTile:  $_stateDivisionIndex / $_townshipIndex / $_typeIndex");
     }
   }
 
@@ -128,6 +129,9 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
       onExpansionChanged: (isExpand) {
         if (!currentFocus.hasPrimaryFocus) {
           currentFocus.focusedChild?.unfocus();
+        }
+        if (isExpand) {
+          _checkSelectedIndex();
         }
       },
       leadingTitle: _titleLabel,

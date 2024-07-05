@@ -127,7 +127,7 @@ class _NrcPickerState extends State<NrcPicker> {
   Future<void> _checkNRC() async {
     if (_nrcValueString != null) {
       if (widget.language == NrcLanguage.english) {
-        if (MmNrc.checkValid(enNrcString: _nrcValueString!)) {
+        if (MmNrc.checkPrefixValid(enNrcString: _nrcValueString!)) {
           Nrc nrc = MmNrc.splitNrc(_nrcValueString!);
           _stateDivision = nrc.stateCode;
           _township = nrc.townshipCode;
@@ -141,7 +141,7 @@ class _NrcPickerState extends State<NrcPicker> {
           });
         }
       } else {
-        if (MmNrc.checkValidMm(mmNrcString: _nrcValueString!)) {
+        if (MmNrc.checkPrefixValidMm(mmNrcString: _nrcValueString!)) {
           Nrc nrc = MmNrc.splitNrc(_nrcValueString!);
           _stateDivision = nrc.stateCode;
           _township = nrc.townshipCode;
@@ -182,7 +182,7 @@ class _NrcPickerState extends State<NrcPicker> {
     );
 
     debugPrint(
-        "_defaultStateDivisionIndex => $_defaultStateDivisionIndex , _defaultTownshipIndex => $_defaultTownshipIndex, _defaultTypeIndex => $_defaultTypeIndex");
+        "Picker: _defaultStateDivisionIndex => $_defaultStateDivisionIndex , _defaultTownshipIndex => $_defaultTownshipIndex, _defaultTypeIndex => $_defaultTypeIndex");
 
     await Future.delayed(const Duration(milliseconds: 500));
     _updateNrc();
