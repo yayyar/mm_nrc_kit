@@ -12,11 +12,15 @@ class NrcExpansionTile extends StatefulWidget {
       required this.onChanged,
       this.nrcValueString,
       this.pickerItemColor,
-      this.language = NrcLanguage.myanmar});
+      this.language = NrcLanguage.myanmar,
+      this.backgroundColor,
+      this.leadingTitleColor});
   final Function(String?) onChanged;
   final String? nrcValueString;
   final Color? pickerItemColor;
   final NrcLanguage language;
+  final Color? backgroundColor;
+  final Color? leadingTitleColor;
 
   @override
   State<NrcExpansionTile> createState() => _NrcPopupMenuButtonState();
@@ -36,13 +40,13 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
   String _trailingLabel = "";
   String _titleLabel = "";
 
-  void _getTypeList() {
+  _getTypeList() {
     MmNrc.types().then((value) {
       _typeList = value;
     });
   }
 
-  void _getStateList() {
+  _getStateList() {
     MmNrc.states().then((value) {
       _stateDevisionList = value;
       MmNrc.getNrcTownshipListByStateId(stateId: defaultStateId).then((value) {
@@ -53,14 +57,56 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
     });
   }
 
+  void _checkSelectedIndex() {
+    if (_nrcValueString != null) {
+      if (widget.language == NrcLanguage.english) {
+        if (MmNrc.checkValid(enNrcString: _nrcValueString!)) {
+          Nrc nrc = MmNrc.splitNrc(_nrcValueString!);
+
+          MmNrc.getNrcTownshipListByStateCode(stateCode: nrc.stateCode)
+              .then((value) {
+            _townshipList = value;
+            _stateDivisionIndex = _stateDevisionList
+                .indexWhere((element) => element!.number.en == nrc.stateCode);
+
+            _townshipIndex = _townshipList.indexWhere((element) =>
+                element.short.en.toLowerCase() ==
+                nrc.townshipCode.toLowerCase());
+
+            _typeIndex = _typeList
+                .indexWhere((element) => element.name.en == nrc.nrcType);
+          });
+        }
+      } else {
+        if (MmNrc.checkValidMm(mmNrcString: _nrcValueString!)) {
+          Nrc nrc = MmNrc.splitNrc(_nrcValueString!);
+
+          MmNrc.getNrcTownshipListByStateCode(stateCode: nrc.stateCode)
+              .then((value) {
+            _townshipList = value;
+            _stateDivisionIndex = _stateDevisionList
+                .indexWhere((element) => element!.number.mm == nrc.stateCode);
+
+            _townshipIndex = _townshipList.indexWhere((element) =>
+                element.short.mm.toLowerCase() ==
+                nrc.townshipCode.toLowerCase());
+
+            _typeIndex = _typeList
+                .indexWhere((element) => element.name.mm == nrc.nrcType);
+          });
+        }
+      }
+      debugPrint("$_stateDivisionIndex / $_townshipIndex / $_typeIndex");
+    }
+  }
+
   @override
   void initState() {
-    if (widget.nrcValueString != null &&
-        MmNrc.checkPrefixValid(enNrcString: widget.nrcValueString ?? "")) {
-      _nrcValueString = widget.nrcValueString!;
-    }
+    _nrcValueString = widget.nrcValueString;
+
     _getStateList();
     _getTypeList();
+    // _checkSelectedIndex();
 
     _trailingLabel = widget.language == NrcLanguage.english
         ? defaultNrcValueLabel
@@ -77,6 +123,8 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
     FocusScopeNode currentFocus = FocusScope.of(context);
 
     return UIExpansionTile(
+      leadingTitleColor: widget.leadingTitleColor,
+      backgroundColor: widget.backgroundColor,
       onExpansionChanged: (isExpand) {
         if (!currentFocus.hasPrimaryFocus) {
           currentFocus.focusedChild?.unfocus();

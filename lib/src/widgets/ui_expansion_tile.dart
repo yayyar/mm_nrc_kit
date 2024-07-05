@@ -6,12 +6,16 @@ class UIExpansionTile extends StatelessWidget {
       this.children = const <Widget>[],
       this.onExpansionChanged,
       required this.leadingTitle,
-      required this.trailingTitle});
+      required this.trailingTitle,
+      this.backgroundColor,
+      this.leadingTitleColor});
 
   final String leadingTitle;
   final String trailingTitle;
   final List<Widget> children;
   final void Function(bool)? onExpansionChanged;
+  final Color? backgroundColor;
+  final Color? leadingTitleColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +35,15 @@ class UIExpansionTile extends StatelessWidget {
             ),
             tilePadding: const EdgeInsets.all(0),
             initiallyExpanded: false,
-            backgroundColor: Colors.white,
-            collapsedBackgroundColor: Colors.white,
+            backgroundColor: backgroundColor ?? Colors.white,
+            collapsedBackgroundColor: backgroundColor ?? Colors.white,
             childrenPadding: const EdgeInsets.symmetric(horizontal: 20),
             title: Text(
               leadingTitle,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: leadingTitleColor ?? Colors.black),
             ),
             children: children),
       );

@@ -57,6 +57,8 @@ class _NrcPickerState extends State<NrcPicker> {
   String _numberTextFieldHint = "";
   String _nrcClearLabel = "";
 
+  late FixedExtentScrollController _townshipScrollController;
+
   void _updateNrc({isClear = false}) {
     _nrcValueString =
         !isClear ? "$_stateDivision/$_township($_type)$_nrcNumber" : null;
@@ -78,13 +80,9 @@ class _NrcPickerState extends State<NrcPicker> {
   void _onTownshipSelectedItemChanged(int index) async {
     _defaultTownshipIndex = index;
     if (_townshipList.isNotEmpty) {
-      try {
-        _township = widget.language == NrcLanguage.english
-            ? _townshipList[index].short.en
-            : _townshipList[index].short.mm;
-      } on Error {
-        _township = _townshipList[0].short.en;
-      }
+      _township = widget.language == NrcLanguage.english
+          ? _townshipList[index].short.en
+          : _townshipList[index].short.mm;
       _updateNrc();
     }
   }
@@ -100,7 +98,10 @@ class _NrcPickerState extends State<NrcPicker> {
       MmNrc.getNrcTownshipListByStateId(stateId: id).then((value) {
         setState(() {
           _townshipList = value;
+          _defaultTownshipIndex = 0;
+          _townshipScrollController.jumpToItem(_defaultTownshipIndex);
         });
+
         _onTownshipSelectedItemChanged(_defaultTownshipIndex);
       });
     }
@@ -176,6 +177,13 @@ class _NrcPickerState extends State<NrcPicker> {
           : defaultTypeHintMm;
     }
 
+    _townshipScrollController = FixedExtentScrollController(
+      initialItem: _defaultTownshipIndex,
+    );
+
+    debugPrint(
+        "_defaultStateDivisionIndex => $_defaultStateDivisionIndex , _defaultTownshipIndex => $_defaultTownshipIndex, _defaultTypeIndex => $_defaultTypeIndex");
+
     await Future.delayed(const Duration(milliseconds: 500));
     _updateNrc();
   }
@@ -236,9 +244,7 @@ class _NrcPickerState extends State<NrcPicker> {
               child: CupertinoPicker(
                 itemExtent:
                     widget.language == NrcLanguage.english ? 32.0 : 40.0,
-                scrollController: FixedExtentScrollController(
-                  initialItem: _defaultTownshipIndex,
-                ),
+                scrollController: _townshipScrollController,
                 onSelectedItemChanged: _onTownshipSelectedItemChanged,
                 children: [
                   for (var data in _townshipList) ...[
@@ -301,6 +307,7 @@ class _NrcPickerState extends State<NrcPicker> {
               hintStyle: const TextStyle(
                   letterSpacing: 1.0,
                   fontSize: 16,
+                  color: Colors.grey,
                   fontWeight: FontWeight.w400),
               counterText: "",
               contentPadding:

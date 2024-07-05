@@ -14,26 +14,24 @@ class NRCField extends StatefulWidget {
       {super.key,
       required this.onCompleted,
       required this.onChanged,
+      this.language = NrcLanguage.myanmar,
       this.nrcValue,
-      this.height,
-      this.isExpand = false,
       this.backgroundColor,
       this.borderColor,
       this.borderRadius,
       this.contentPadding,
       this.pickerItemColor,
       this.borderWidth,
-      this.language = NrcLanguage.myanmar});
+      this.leadingTitleColor});
   final Function(String?) onCompleted;
   final Function(String?) onChanged;
   final String? nrcValue;
-  final double? height;
-  final bool isExpand;
   final Color? backgroundColor;
   final Color? borderColor;
   final double? borderRadius;
   final EdgeInsetsGeometry? contentPadding;
   final Color? pickerItemColor;
+  final Color? leadingTitleColor;
   final double? borderWidth;
   final NrcLanguage language;
 
@@ -83,7 +81,7 @@ class _MMNRCTextFieldState extends State<NRCField> {
     return Container(
         padding: widget.contentPadding ??
             const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-        width: widget.isExpand ? MediaQuery.of(context).size.width : null,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: widget.backgroundColor ?? Colors.white,
             border: Border.all(
@@ -92,6 +90,8 @@ class _MMNRCTextFieldState extends State<NRCField> {
             borderRadius:
                 BorderRadius.all(Radius.circular(widget.borderRadius ?? 10))),
         child: NrcExpansionTile(
+          backgroundColor: widget.backgroundColor,
+          leadingTitleColor: widget.leadingTitleColor,
           language: widget.language,
           pickerItemColor: widget.pickerItemColor,
           nrcValueString: _nrcValueString,
