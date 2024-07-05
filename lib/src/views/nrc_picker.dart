@@ -8,7 +8,7 @@ class NrcPicker extends StatefulWidget {
   const NrcPicker(
       {super.key,
       required this.onSelected,
-      required this.nrcValueString,
+      this.nrcValueString,
       required this.stateDevisionList,
       required this.townshipList,
       required this.typeList,
@@ -21,7 +21,7 @@ class NrcPicker extends StatefulWidget {
 
   final Function(String?) onSelected;
   final Function(List<int>) onSelectedIndex;
-  final String nrcValueString;
+  final String? nrcValueString;
   final List<StateDivision?> stateDevisionList;
   final List<Township> townshipList;
   final List<Types> typeList;
@@ -108,55 +108,36 @@ class _NrcPickerState extends State<NrcPicker> {
 
   @override
   void initState() {
-    _numberTextFieldHint = widget.language == NrcLanguage.english
-        ? defaultNrcNumberHint
-        : defaultNrcNumberHintMm;
+    _nrcValueString = widget.nrcValueString;
 
     _nrcClearLabel = widget.language == NrcLanguage.english
         ? defaultNrcClearLabel
         : defaultNrcClearLabelMm;
 
-    _stateDivision = widget.language == NrcLanguage.english
-        ? defaultStateCodeHint
-        : defaultStateCodeHintMm;
-    _township = widget.language == NrcLanguage.english
-        ? defaultTownshipHint
-        : defaultTownshipHintMm;
-    _type = widget.language == NrcLanguage.english
-        ? defaultTypeHint
-        : defaultTypeHintMm;
-
-    _defaultStateDivisionIndex = widget.selectedStateDivisionIndex;
-    _defaultTownshipIndex = widget.selectedTownshipIndex;
-    _defaultTypeIndex = widget.selectedTypeIndex;
-
     _stateDevisionList = widget.stateDevisionList;
     _townshipList = widget.townshipList;
     _typeList = widget.typeList;
 
-    _nrcValueString = widget.nrcValueString;
-
-    checkNRCPrefix();
+    _checkNRC();
 
     super.initState();
   }
 
-  Future<void> checkNRCPrefix() async {
-    setState(() {
-      _defaultStateDivisionIndex = 7;
-      _defaultTownshipIndex = 22;
-      _defaultTypeIndex = 0;
-    });
-
+  Future<void> _checkNRC() async {
     if (_nrcValueString != null) {
       if (widget.language == NrcLanguage.english) {
-        if (MmNrc.checkPrefixValid(enNrcString: _nrcValueString!)) {
+        if (MmNrc.checkValid(enNrcString: _nrcValueString!)) {
           Nrc nrc = MmNrc.splitNrc(_nrcValueString!);
           _stateDivision = nrc.stateCode;
           _township = nrc.townshipCode;
           _type = nrc.nrcType;
           _nrcTextEditingController.text = nrc.nrcNo;
           _nrcNumber = nrc.nrcNo;
+          setState(() {
+            _defaultStateDivisionIndex = widget.selectedStateDivisionIndex;
+            _defaultTownshipIndex = widget.selectedTownshipIndex;
+            _defaultTypeIndex = widget.selectedTypeIndex;
+          });
         }
       } else {
         if (MmNrc.checkValidMm(mmNrcString: _nrcValueString!)) {
@@ -166,8 +147,33 @@ class _NrcPickerState extends State<NrcPicker> {
           _type = nrc.nrcType;
           _nrcTextEditingController.text = nrc.nrcNo;
           _nrcNumber = nrc.nrcNo;
+          setState(() {
+            _defaultStateDivisionIndex = widget.selectedStateDivisionIndex;
+            _defaultTownshipIndex = widget.selectedTownshipIndex;
+            _defaultTypeIndex = widget.selectedTypeIndex;
+          });
         }
       }
+    } else {
+      setState(() {
+        _defaultStateDivisionIndex = 7;
+        _defaultTownshipIndex = 22;
+        _defaultTypeIndex = 0;
+      });
+
+      _numberTextFieldHint = widget.language == NrcLanguage.english
+          ? defaultNrcNumberHint
+          : defaultNrcNumberHintMm;
+
+      _stateDivision = widget.language == NrcLanguage.english
+          ? defaultStateCodeHint
+          : defaultStateCodeHintMm;
+      _township = widget.language == NrcLanguage.english
+          ? defaultTownshipHint
+          : defaultTownshipHintMm;
+      _type = widget.language == NrcLanguage.english
+          ? defaultTypeHint
+          : defaultTypeHintMm;
     }
 
     await Future.delayed(const Duration(milliseconds: 500));
