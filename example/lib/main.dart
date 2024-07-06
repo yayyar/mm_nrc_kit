@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: NRCField(
-            language: NrcLanguage.english,
+            language: NrcLanguage.myanmar,
             onCompleted: (value) {
               debugPrint("onCompleted : $value");
             },
