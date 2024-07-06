@@ -5,6 +5,7 @@ import 'package:mm_nrc_kit/src/data/mm_nrc.dart';
 import 'package:mm_nrc_kit/src/model/model.dart';
 import 'package:mm_nrc_kit/src/views/number_keyboard/english_number_keyboard.dart';
 import 'package:mm_nrc_kit/src/views/number_keyboard/myanmar_number_keyboard.dart';
+import 'package:mm_nrc_kit/src/widgets/ui_text_field.dart';
 
 class NrcPicker extends StatefulWidget {
   const NrcPicker(
@@ -38,8 +39,19 @@ class NrcPicker extends StatefulWidget {
 }
 
 class _NrcPickerState extends State<NrcPicker> {
-  final TextEditingController _nrcTextEditingController =
-      TextEditingController();
+  final List<TextEditingController> _numberEditingControllerList = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
+
+  bool _isShowKeyboard = false;
+
+  int _currentController = 0;
+
   final FocusNode _focusNode = FocusNode();
 
   int _defaultStateDivisionIndex = 0;
@@ -57,7 +69,6 @@ class _NrcPickerState extends State<NrcPicker> {
   String? _nrcValueString;
   String _nrcNumber = "";
 
-  String _numberTextFieldHint = "";
   String _nrcClearLabel = "";
 
   late FixedExtentScrollController _townshipScrollController;
@@ -118,10 +129,6 @@ class _NrcPickerState extends State<NrcPicker> {
         ? defaultNrcClearLabel
         : defaultNrcClearLabelMm;
 
-    _numberTextFieldHint = widget.language == NrcLanguage.english
-        ? defaultNrcNumberHint
-        : defaultNrcNumberHintMm;
-
     _stateDevisionList = widget.stateDevisionList;
     _townshipList = widget.townshipList;
     _typeList = widget.typeList;
@@ -133,7 +140,6 @@ class _NrcPickerState extends State<NrcPicker> {
 
   @override
   void dispose() {
-    _nrcTextEditingController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -146,8 +152,8 @@ class _NrcPickerState extends State<NrcPicker> {
           _stateDivision = nrc.stateCode;
           _township = nrc.townshipCode;
           _type = nrc.nrcType;
-          _nrcTextEditingController.text = nrc.nrcNo;
           _nrcNumber = nrc.nrcNo;
+          _bindNrcNumber(_nrcNumber);
           setState(() {
             _defaultStateDivisionIndex = widget.selectedStateDivisionIndex;
             _defaultTownshipIndex = widget.selectedTownshipIndex;
@@ -160,8 +166,8 @@ class _NrcPickerState extends State<NrcPicker> {
           _stateDivision = nrc.stateCode;
           _township = nrc.townshipCode;
           _type = nrc.nrcType;
-          _nrcTextEditingController.text = nrc.nrcNo;
           _nrcNumber = nrc.nrcNo;
+          _bindNrcNumber(_nrcNumber);
           setState(() {
             _defaultStateDivisionIndex = widget.selectedStateDivisionIndex;
             _defaultTownshipIndex = widget.selectedTownshipIndex;
@@ -205,7 +211,9 @@ class _NrcPickerState extends State<NrcPicker> {
 
   _clearNrcValue() {
     _updateNrc(isClear: true);
-    _nrcTextEditingController.clear();
+    for (var element in _numberEditingControllerList) {
+      element.clear();
+    }
   }
 
   @override
@@ -298,55 +306,29 @@ class _NrcPickerState extends State<NrcPicker> {
             ),
           ],
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 8),
-          child: GestureDetector(
-            onTap: _onNumberTextFieldFocus,
-            child: AbsorbPointer(
-              child: TextFormField(
-                onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-                enabled: false,
-                onChanged: _onChanged,
-                controller: _nrcTextEditingController,
-                textDirection: TextDirection.rtl,
-                maxLength: 6,
-                keyboardType: TextInputType.number,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(
-                    letterSpacing: 4.0,
-                    color: widget.pickerItemColor ?? Colors.black,
-                    fontSize: 16),
-                decoration: InputDecoration(
-                  hintText: _numberTextFieldHint,
-                  hintTextDirection: TextDirection.ltr,
-                  hintStyle: const TextStyle(
-                      letterSpacing: 1.0,
-                      fontSize: 16,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w400),
-                  counterText: "",
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                  disabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      borderSide: BorderSide(width: 1, color: Colors.grey)),
-                  focusedErrorBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      borderSide: BorderSide(width: 1, color: Colors.red)),
-                  errorBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      borderSide: BorderSide(width: 1, color: Colors.red)),
-                  focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      borderSide:
-                          BorderSide(width: 1, color: Colors.deepPurple)),
-                  enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      borderSide: BorderSide(width: 0.5, color: Colors.grey)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            for (var index = 0;
+                index < _numberEditingControllerList.length;
+                index++) ...[
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                width: 45,
+                height: 45,
+                child: GestureDetector(
+                  onTap: _onNumberTextFieldFocus,
+                  child: AbsorbPointer(
+                      child: UITextField(
+                    focusColor: (_isShowKeyboard && index == _currentController)
+                        ? Colors.deepPurple
+                        : null,
+                    controller: _numberEditingControllerList[index],
+                  )),
                 ),
-              ),
-            ),
-          ),
+              )
+            ],
+          ],
         ),
         GestureDetector(
             onTap: _clearNrcValue,
@@ -364,26 +346,28 @@ class _NrcPickerState extends State<NrcPicker> {
   }
 
   void _handleKeyPress(String key) {
+    debugPrint("_currentController => $_currentController");
     if (key == "﹀") {
       Navigator.of(context).pop();
       return;
     }
     if (key == '⌫') {
-      if (_nrcTextEditingController.text.isNotEmpty) {
+      if (_currentController != 0) {
         setState(() {
-          _nrcTextEditingController.text = _nrcTextEditingController.text
-              .substring(0, _nrcTextEditingController.text.length - 1);
+          _numberEditingControllerList[_currentController - 1].clear();
+          _currentController -= 1;
         });
       }
     } else {
-      if (_nrcTextEditingController.text.length == 6) {
+      if (_currentController == 6) {
         return;
       }
       setState(() {
-        _nrcTextEditingController.text += key;
+        _currentController += 1;
+        _numberEditingControllerList[_currentController - 1].text = key;
       });
     }
-    _onChanged(_nrcTextEditingController.text);
+    _onChanged(_numberEditingControllerList.map((e) => e.text).join(''));
   }
 
   void _showMyanmarKeyboard(BuildContext context) {
@@ -398,7 +382,11 @@ class _NrcPickerState extends State<NrcPicker> {
       builder: (context) {
         return MyanmarNumberKeyboard(onKeyPressed: _handleKeyPress);
       },
-    );
+    ).whenComplete(() {
+      setState(() {
+        _isShowKeyboard = false;
+      });
+    });
   }
 
   void _showEnglishKeyboard(BuildContext context) {
@@ -413,15 +401,30 @@ class _NrcPickerState extends State<NrcPicker> {
       builder: (context) {
         return EnglishNumberKeyboard(onKeyPressed: _handleKeyPress);
       },
-    );
+    ).whenComplete(() {
+      setState(() {
+        _isShowKeyboard = false;
+      });
+    });
   }
 
   void _onNumberTextFieldFocus() {
     FocusScope.of(context).requestFocus(_focusNode);
+    setState(() {
+      _isShowKeyboard = true;
+    });
     if (widget.language == NrcLanguage.english) {
       _showEnglishKeyboard(context);
     } else {
       _showMyanmarKeyboard(context);
+    }
+  }
+
+  void _bindNrcNumber(String nrcNumber) {
+    final numberList = nrcNumber.split('');
+    for (var index = 0; index < numberList.length; index++) {
+      _numberEditingControllerList[index].text = numberList[index];
+      _currentController += 1;
     }
   }
 }
