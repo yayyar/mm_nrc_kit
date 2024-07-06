@@ -7,8 +7,6 @@ import 'package:mm_nrc_kit/src/views/nrc_expansion_tile.dart';
 class NRCField extends StatefulWidget {
   /// Creates a Myanmar NRC Field.
   ///
-  /// If [isExpand] is true, it must be full width.
-  ///
   /// Typically used for the Myanmar NRC Picker.
   const NRCField(
       {super.key,

@@ -79,6 +79,9 @@ class _NrcPickerState extends State<NrcPicker> {
     widget.onSelected(_nrcValueString);
     widget.onSelectedIndex(
         [_defaultStateDivisionIndex, _defaultTownshipIndex, _defaultTypeIndex]);
+    // if (isClear) {
+    //   _townshipScrollController.jumpToItem(_defaultTownshipIndex);
+    // }
   }
 
   void _onTypeSelectedItemChanged(int index) {
@@ -178,13 +181,13 @@ class _NrcPickerState extends State<NrcPicker> {
     } else {
       setState(() {
         _defaultStateDivisionIndex = 7;
-        _defaultTownshipIndex = 22;
+        _defaultTownshipIndex = 21;
         _defaultTypeIndex = 0;
       });
 
       _stateDivision = widget.language == NrcLanguage.english
-          ? defaultStateCodeHint
-          : defaultStateCodeHintMm;
+          ? defaultStateCode
+          : defaultStateCodeMm;
       _township = widget.language == NrcLanguage.english
           ? defaultTownshipHint
           : defaultTownshipHintMm;

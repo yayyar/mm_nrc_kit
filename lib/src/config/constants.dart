@@ -4,8 +4,8 @@ const nrcLabelMm = "နိုင်ငံသားစိစစ်ရေးအမ
 const defaultNrcValueLabel = "Add";
 const defaultNrcValueLabelMm = "ထည့်ပါ";
 
-const defaultStateCodeHint = "8";
-const defaultStateCodeHintMm = "၈";
+const defaultStateCode = "8";
+const defaultStateCodeMm = "၈";
 
 const defaultTownshipHint = "MAKANA";
 const defaultTownshipHintMm = "မကန";
@@ -18,7 +18,5 @@ const defaultNrcNumberHintMm = "နံပါတ်ထည့်ပါ";
 
 const defaultNrcClearLabel = "Remove NRC";
 const defaultNrcClearLabelMm = "ဖယ်ရှားပါ";
-
-const defaultStateId = "bTuNIfLfchNvk1N_";
 
 enum NrcLanguage { myanmar, english }

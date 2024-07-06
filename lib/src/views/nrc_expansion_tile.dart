@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mm_nrc_kit/src/config/constants.dart';
 import 'package:mm_nrc_kit/src/data/mm_nrc.dart';
 import 'package:mm_nrc_kit/src/model/model.dart';
+import 'package:mm_nrc_kit/src/utils/digit_util.dart';
 import 'package:mm_nrc_kit/src/widgets/ui_expansion_tile.dart';
 
 import 'nrc_picker.dart';
@@ -50,7 +51,7 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
     MmNrc.states().then((value) {
       _stateDevisionList = value;
       if (_nrcValueString == null) {
-        MmNrc.getNrcTownshipListByStateId(stateId: defaultStateId)
+        MmNrc.getNrcTownshipListByStateCode(stateCode: defaultStateCode)
             .then((value) {
           setState(() {
             _townshipList = value;
@@ -89,7 +90,9 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
         if (MmNrc.checkPrefixValidMm(mmNrcString: _nrcValueString!)) {
           Nrc nrc = MmNrc.splitNrc(_nrcValueString!);
 
-          MmNrc.getNrcTownshipListByStateCode(stateCode: nrc.stateCode)
+          String stateCode = DigitUtil.myanmarToEnglishDigit(nrc.stateCode);
+
+          MmNrc.getNrcTownshipListByStateCode(stateCode: stateCode)
               .then((value) {
             setState(() {
               _townshipList = value;
