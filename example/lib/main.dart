@@ -52,15 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: NRCField(
             language: NrcLanguage.english,
-            nrcValue: "8/MAKANA(N)123456",
-            leadingTitleColor: Colors.black,
-            backgroundColor: Colors.white,
-            pickerItemColor: Colors.black,
-            borderColor: Colors.white,
-            borderRadius: 10,
-            borderWidth: 0.4,
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             onCompleted: (value) {
               debugPrint("onCompleted : $value");
             },

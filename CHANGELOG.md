@@ -1,4 +1,10 @@
-## 0.0.2
+## 1.0.0
+* NRC Language Support for both Myanmar and English
+* Number Keyboard Support for both Myanmar Number and English Number
+* UI improvement
+* Fixed bugs
+
+## 0.0.3
 * Update usage instruction.
 
 ## 0.0.2

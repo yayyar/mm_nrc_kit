@@ -4,7 +4,9 @@
 
 [![pub package](https://img.shields.io/pub/v/mm_nrc_kit.svg)](https://pub.dev/packages/mm_nrc_kit)
 
-<img src="https://github.com/yayyar/mm_nrc_kit/raw/main/testing/mm_nrc_kit_testing.gif" width="195" height="400" />
+<img src="https://github.com/yayyar/mm_nrc_kit/raw/main/testing/mm_nrc_kit_mm.gif" width="195" height="400" />
+<br>
+<img src="https://github.com/yayyar/mm_nrc_kit/raw/main/testing/mm_nrc_kit_eng.gif" width="195" height="400" />
 
 ## Usage
 
@@ -18,6 +20,7 @@ import 'package:mm_nrc_kit/mm_nrc_kit.dart';
 3. Example
 ```dart
 NRCField(
+  language: NrcLanguage.myanmar,
   onCompleted: (value) {
     debugPrint("onCompleted : $value");
   },
@@ -28,20 +31,42 @@ NRCField(
 ```
 ```dart
 NRCField(
-    nrcValue: "8/MaKaNa(N)000000",
-    height: 50,
-    isExpand: false,
-    backgroundColor: Colors.white,
-    borderColor: Colors.grey,
-    borderWidth: 0.4,
-    borderRadius: 10,
-    pickerColor: const Color(0xffeeeeee),
-    pickerItemColor: Colors.black,
-    onCompleted: (value) {
-      debugPrint("onCompleted : $value");
-    },
-    onChanged: (value) {
-      debugPrint("onChanged : $value");
-    },
-  )
+  language: NrcLanguage.english,
+  nrcValue: "8/MAKANA(N)123456",
+  leadingTitleColor: Colors.black,
+  backgroundColor: Colors.white,
+  pickerItemColor: Colors.black,
+  borderColor: Colors.white,
+  borderRadius: 10,
+  borderWidth: 0.4,
+  contentPadding:
+      const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+  onCompleted: (value) {
+    debugPrint("onCompleted : $value");
+  },
+  onChanged: (value) {
+    debugPrint("onChanged : $value");
+  },
+)
+```
+
+```dart
+NRCField(
+  language: NrcLanguage.myanmar,
+  nrcValue: "၈/မကန(နိုင်)၁၂၃၄၅၆",
+  leadingTitleColor: Colors.black,
+  backgroundColor: Colors.white,
+  pickerItemColor: Colors.black,
+  borderColor: Colors.white,
+  borderRadius: 10,
+  borderWidth: 0.4,
+  contentPadding:
+      const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+  onCompleted: (value) {
+    debugPrint("onCompleted : $value");
+  },
+  onChanged: (value) {
+    debugPrint("onChanged : $value");
+  },
+)
 ```
