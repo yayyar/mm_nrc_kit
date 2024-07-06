@@ -51,9 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: NRCField(
-            language: NrcLanguage.myanmar,
-            nrcValue:
-                "၈/မကန(နိုင်)၁၂၃၄၅၆", // ၈/မကန(နိုင်)၁၂၃၄၅၆ // 8/MAKANA(N)123456
+            language: NrcLanguage.english,
+            nrcValue: "8/MAKANA(N)123456",
             leadingTitleColor: Colors.black,
             backgroundColor: Colors.white,
             pickerItemColor: Colors.black,

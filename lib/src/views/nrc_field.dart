@@ -7,7 +7,7 @@ import 'package:mm_nrc_kit/src/views/nrc_expansion_tile.dart';
 class NRCField extends StatefulWidget {
   /// Creates a Myanmar NRC Field.
   ///
-  /// Typically used for the Myanmar NRC Picker.
+  /// Used for the Myanmar NRC Picker.
   const NRCField(
       {super.key,
       required this.onCompleted,
