@@ -10,122 +10,126 @@ class EnglishNumberKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xffD1D3DA),
-      padding: const EdgeInsets.only(top: 5),
-      child: SafeArea(child: OrientationBuilder(
-        builder: (context, orientation) {
-          return SizedBox(
-            height: orientation == Orientation.landscape
-                ? MediaQuery.of(context).size.width / 3.8
-                : MediaQuery.of(context).size.width / 1.9, // 250
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    KeyButton(
-                      context,
-                      '1',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                    KeyButton(
-                      context,
-                      '2',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                    KeyButton(
-                      context,
-                      '3',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    KeyButton(
-                      context,
-                      '4',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                    KeyButton(
-                      context,
-                      '5',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                    KeyButton(
-                      context,
-                      '6',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    KeyButton(
-                      context,
-                      '7',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                    KeyButton(
-                      context,
-                      '8',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                    KeyButton(
-                      context,
-                      '9',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    KeyButton(
-                      context,
-                      '﹀',
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 26,
-                      orientation: orientation,
-                      overlayColor: Colors.transparent,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                    KeyButton(
-                      context,
-                      '0',
-                      orientation: orientation,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                    KeyButton(
-                      context,
-                      '⌫',
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 26,
-                      orientation: orientation,
-                      overlayColor: Colors.transparent,
-                      onKeyPressed: onKeyPressed,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+      child: SafeArea(
+          child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              KeyButton(
+                context,
+                '1',
+                onKeyPressed: onKeyPressed,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              KeyButton(
+                context,
+                '2',
+                onKeyPressed: onKeyPressed,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              KeyButton(
+                context,
+                '3',
+                onKeyPressed: onKeyPressed,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              KeyButton(
+                context,
+                '4',
+                onKeyPressed: onKeyPressed,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              KeyButton(
+                context,
+                '5',
+                onKeyPressed: onKeyPressed,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              KeyButton(
+                context,
+                '6',
+                onKeyPressed: onKeyPressed,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              KeyButton(
+                context,
+                '7',
+                onKeyPressed: onKeyPressed,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              KeyButton(
+                context,
+                '8',
+                onKeyPressed: onKeyPressed,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              KeyButton(
+                context,
+                '9',
+                onKeyPressed: onKeyPressed,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              KeyButton(
+                context,
+                '﹀',
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                fontWeight: FontWeight.w500,
+                fontSize: 26,
+                overlayColor: Colors.transparent,
+                onKeyPressed: onKeyPressed,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              KeyButton(
+                context,
+                '0',
+                onKeyPressed: onKeyPressed,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              KeyButton(
+                context,
+                '⌫',
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                fontWeight: FontWeight.w300,
+                fontSize: 26,
+                overlayColor: Colors.transparent,
+                onKeyPressed: onKeyPressed,
+              ),
+            ],
+          ),
+        ],
       )),
     );
   }

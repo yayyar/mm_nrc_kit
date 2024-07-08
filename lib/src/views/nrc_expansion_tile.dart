@@ -145,10 +145,6 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
         if (!currentFocus.hasPrimaryFocus) {
           currentFocus.focusedChild?.unfocus();
         }
-        if (isExpand) {
-          // _checkSelectedIndex();
-          debugPrint("isExpand _townshipList => $_townshipList");
-        }
       },
       leadingTitle: _titleLabel,
       trailingTitle: _nrcValueString ?? _trailingLabel,

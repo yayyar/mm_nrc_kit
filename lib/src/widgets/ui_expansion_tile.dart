@@ -35,7 +35,7 @@ class UIExpansionTile extends StatelessWidget {
           initiallyExpanded: false,
           backgroundColor: backgroundColor ?? Colors.white,
           collapsedBackgroundColor: backgroundColor ?? Colors.white,
-          childrenPadding: const EdgeInsets.symmetric(horizontal: 20),
+          childrenPadding: const EdgeInsets.symmetric(horizontal: 0),
           title: Text(
             leadingTitle,
             style: TextStyle(

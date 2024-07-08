@@ -222,7 +222,7 @@ class _NrcPickerState extends State<NrcPicker> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Divider(
           thickness: 0.5,
@@ -310,7 +310,7 @@ class _NrcPickerState extends State<NrcPicker> {
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
           children: [
             for (var index = 0;
                 index < _numberEditingControllerList.length;
@@ -329,21 +329,29 @@ class _NrcPickerState extends State<NrcPicker> {
                     controller: _numberEditingControllerList[index],
                   )),
                 ),
-              )
+              ),
+              if (index != _numberEditingControllerList.length - 1) ...[
+                const SizedBox(
+                  width: 5,
+                ),
+              ]
             ],
           ],
         ),
-        GestureDetector(
-            onTap: _clearNrcValue,
-            child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  _nrcClearLabel,
-                  style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.deepPurple,
-                      fontWeight: FontWeight.w600),
-                )))
+        Align(
+          alignment: Alignment.centerLeft,
+          child: GestureDetector(
+              onTap: _clearNrcValue,
+              child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    _nrcClearLabel,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.deepPurple,
+                        fontWeight: FontWeight.w600),
+                  ))),
+        )
       ],
     );
   }
@@ -383,6 +391,7 @@ class _NrcPickerState extends State<NrcPicker> {
           maxWidth: MediaQuery.of(context).size.width,
           maxHeight: MediaQuery.of(context).size.height),
       builder: (context) {
+        // return const Placeholder();
         return MyanmarNumberKeyboard(onKeyPressed: _handleKeyPress);
       },
     ).whenComplete(() {
