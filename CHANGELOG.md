@@ -1,3 +1,9 @@
+## 1.0.1
+* improvement for responsive interface
+    - number keyboard layout
+    - picker
+    - number input field
+
 ## 1.0.0
 * NRC Language Support for both Myanmar and English
 * Number Keyboard Support for both Myanmar Number and English Number

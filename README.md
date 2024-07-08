@@ -4,6 +4,10 @@
 
 [![pub package](https://img.shields.io/pub/v/mm_nrc_kit.svg)](https://pub.dev/packages/mm_nrc_kit)
 
+<h4>
+This package is for Myanmar NRC Picker and Number Keyboard.
+</h4>
+
 <img src="https://github.com/yayyar/mm_nrc_kit/raw/main/testing/mm_nrc_kit_mm.gif" width="195" height="400" />
 <br>
 <img src="https://github.com/yayyar/mm_nrc_kit/raw/main/testing/mm_nrc_kit_eng.gif" width="195" height="400" />
@@ -21,6 +25,17 @@ import 'package:mm_nrc_kit/mm_nrc_kit.dart';
 ```dart
 NRCField(
   language: NrcLanguage.myanmar,
+  onCompleted: (value) {
+    debugPrint("onCompleted : $value");
+  },
+  onChanged: (value) {
+    debugPrint("onChanged : $value");
+  },
+)
+```
+```dart
+NRCField(
+  language: NrcLanguage.english,
   onCompleted: (value) {
     debugPrint("onCompleted : $value");
   },
