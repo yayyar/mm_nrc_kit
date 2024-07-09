@@ -1,4 +1,9 @@
 ## 1.0.1
+* support customizable font size for
+    - leading title
+    - trailing title
+
+## 1.0.1
 * improvement for responsive interface
     - number keyboard layout
     - picker

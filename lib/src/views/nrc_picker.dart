@@ -200,8 +200,8 @@ class _NrcPickerState extends State<NrcPicker> {
       initialItem: _defaultTownshipIndex,
     );
 
-    debugPrint(
-        "Picker: _defaultStateDivisionIndex => $_defaultStateDivisionIndex , _defaultTownshipIndex => $_defaultTownshipIndex, _defaultTypeIndex => $_defaultTypeIndex");
+    // debugPrint(
+    //     "Picker: _defaultStateDivisionIndex => $_defaultStateDivisionIndex , _defaultTownshipIndex => $_defaultTownshipIndex, _defaultTypeIndex => $_defaultTypeIndex");
 
     await Future.delayed(const Duration(milliseconds: 500));
     _updateNrc();
@@ -214,9 +214,14 @@ class _NrcPickerState extends State<NrcPicker> {
 
   _clearNrcValue() {
     _updateNrc(isClear: true);
-    for (var element in _numberEditingControllerList) {
-      element.clear();
-    }
+
+    setState(() {
+      for (var element in _numberEditingControllerList) {
+        // debugPrint("element clean");
+        element.clear();
+      }
+      _currentController = 0;
+    });
   }
 
   @override
@@ -357,7 +362,7 @@ class _NrcPickerState extends State<NrcPicker> {
   }
 
   void _handleKeyPress(String key) {
-    debugPrint("_currentController => $_currentController");
+    // debugPrint("_currentController => $_currentController");
     if (key == "﹀") {
       Navigator.of(context).pop();
       return;

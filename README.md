@@ -24,6 +24,16 @@ import 'package:mm_nrc_kit/mm_nrc_kit.dart';
 3. Example
 ```dart
 NRCField(
+  onCompleted: (value) {
+    debugPrint("onCompleted : $value");
+  },
+  onChanged: (value) {
+    debugPrint("onChanged : $value");
+  },
+)
+```
+```dart
+NRCField(
   language: NrcLanguage.myanmar,
   onCompleted: (value) {
     debugPrint("onCompleted : $value");
@@ -48,6 +58,8 @@ NRCField(
 NRCField(
   language: NrcLanguage.english,
   nrcValue: "8/MAKANA(N)123456",
+  leadingTitleFontSize: 14,
+  trailingTitleFontSize: 14,
   leadingTitleColor: Colors.black,
   backgroundColor: Colors.white,
   pickerItemColor: Colors.black,
@@ -69,6 +81,8 @@ NRCField(
 NRCField(
   language: NrcLanguage.myanmar,
   nrcValue: "၈/မကန(နိုင်)၁၂၃၄၅၆",
+  leadingTitleFontSize: 14,
+  trailingTitleFontSize: 14,
   leadingTitleColor: Colors.black,
   backgroundColor: Colors.white,
   pickerItemColor: Colors.black,
@@ -85,3 +99,9 @@ NRCField(
   },
 )
 ```
+
+## Conslusion
+- Credit : NRC Data and Util to [mm_nrc](https://pub.dev/packages/mm_nrc) package
+- UI/UX inspired by SwiftUI flow
+
+``Happy coding`` ``Peace✌️``

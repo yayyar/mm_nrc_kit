@@ -15,13 +15,17 @@ class NrcExpansionTile extends StatefulWidget {
       this.pickerItemColor,
       this.language = NrcLanguage.myanmar,
       this.backgroundColor,
-      this.leadingTitleColor});
+      this.leadingTitleColor,
+      this.leadingTitleFontSize,
+      this.trailingTitleFontSize});
   final Function(String?) onChanged;
   final String? nrcValueString;
   final Color? pickerItemColor;
   final NrcLanguage language;
   final Color? backgroundColor;
   final Color? leadingTitleColor;
+  final double? leadingTitleFontSize;
+  final double? trailingTitleFontSize;
 
   @override
   State<NrcExpansionTile> createState() => _NrcPopupMenuButtonState();
@@ -55,7 +59,7 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
             .then((value) {
           setState(() {
             _townshipList = value;
-            debugPrint("_getStateList _townshipList => $_townshipList");
+            // debugPrint("_getStateList _townshipList => $_townshipList");
           });
         });
       }
@@ -72,8 +76,8 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
               .then((value) {
             setState(() {
               _townshipList = value;
-              debugPrint(
-                  "_checkSelectedIndex one _townshipList => $_townshipList");
+              // debugPrint(
+              //     "_checkSelectedIndex one _townshipList => $_townshipList");
             });
             _stateDivisionIndex = _stateDevisionList
                 .indexWhere((element) => element!.number.en == nrc.stateCode);
@@ -96,8 +100,8 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
               .then((value) {
             setState(() {
               _townshipList = value;
-              debugPrint(
-                  "_checkSelectedIndex two _townshipList => $_townshipList");
+              // debugPrint(
+              //     "_checkSelectedIndex two _townshipList => $_townshipList");
             });
             _stateDivisionIndex = _stateDevisionList
                 .indexWhere((element) => element!.number.mm == nrc.stateCode);
@@ -111,8 +115,8 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
           });
         }
       }
-      debugPrint(
-          "ExpansionTile:  $_stateDivisionIndex / $_townshipIndex / $_typeIndex");
+      // debugPrint(
+      //     "ExpansionTile:  $_stateDivisionIndex / $_townshipIndex / $_typeIndex");
     }
   }
 
@@ -139,6 +143,8 @@ class _NrcPopupMenuButtonState extends State<NrcExpansionTile> {
     FocusScopeNode currentFocus = FocusScope.of(context);
 
     return UIExpansionTile(
+      leadingTitleFontSize: widget.leadingTitleFontSize,
+      trailingTitleFontSize: widget.trailingTitleFontSize,
       leadingTitleColor: widget.leadingTitleColor,
       backgroundColor: widget.backgroundColor,
       onExpansionChanged: (isExpand) {

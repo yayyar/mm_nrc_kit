@@ -20,7 +20,9 @@ class NRCField extends StatefulWidget {
       this.contentPadding,
       this.pickerItemColor,
       this.borderWidth,
-      this.leadingTitleColor});
+      this.leadingTitleColor,
+      this.leadingTitleFontSize,
+      this.trailingTitleFontSize});
   final Function(String?) onCompleted;
   final Function(String?) onChanged;
   final String? nrcValue;
@@ -32,6 +34,8 @@ class NRCField extends StatefulWidget {
   final Color? leadingTitleColor;
   final double? borderWidth;
   final NrcLanguage language;
+  final double? leadingTitleFontSize;
+  final double? trailingTitleFontSize;
 
   @override
   State<NRCField> createState() => _MMNRCTextFieldState();
@@ -52,8 +56,8 @@ class _MMNRCTextFieldState extends State<NRCField> {
     } else {
       nrcNumber = null;
     }
-    debugPrint("nrcNumber => $nrcNumber");
-    debugPrint("nrcNumberLength => ${nrcNumber?.length}");
+    // debugPrint("nrcNumber => $nrcNumber");
+    // debugPrint("nrcNumberLength => ${nrcNumber?.length}");
     if (nrcNumber?.length == 6 || nrcNumber == null) {
       // on completed
       widget.onCompleted(_nrcValueString);
@@ -90,6 +94,8 @@ class _MMNRCTextFieldState extends State<NRCField> {
             borderRadius:
                 BorderRadius.all(Radius.circular(widget.borderRadius ?? 10))),
         child: NrcExpansionTile(
+          leadingTitleFontSize: widget.leadingTitleFontSize,
+          trailingTitleFontSize: widget.trailingTitleFontSize,
           backgroundColor: widget.backgroundColor,
           leadingTitleColor: widget.leadingTitleColor,
           language: widget.language,

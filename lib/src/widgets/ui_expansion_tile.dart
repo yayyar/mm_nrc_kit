@@ -8,7 +8,9 @@ class UIExpansionTile extends StatelessWidget {
       required this.leadingTitle,
       required this.trailingTitle,
       this.backgroundColor,
-      this.leadingTitleColor});
+      this.leadingTitleColor,
+      this.leadingTitleFontSize,
+      this.trailingTitleFontSize});
 
   final String leadingTitle;
   final String trailingTitle;
@@ -16,6 +18,8 @@ class UIExpansionTile extends StatelessWidget {
   final void Function(bool)? onExpansionChanged;
   final Color? backgroundColor;
   final Color? leadingTitleColor;
+  final double? leadingTitleFontSize;
+  final double? trailingTitleFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +28,6 @@ class UIExpansionTile extends StatelessWidget {
           onExpansionChanged: onExpansionChanged,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          trailing: Text(
-            trailingTitle,
-            style: const TextStyle(
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.w600,
-                fontSize: 16),
-          ),
           tilePadding: const EdgeInsets.all(0),
           initiallyExpanded: false,
           backgroundColor: backgroundColor ?? Colors.white,
@@ -40,8 +37,15 @@ class UIExpansionTile extends StatelessWidget {
             leadingTitle,
             style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
+                fontSize: trailingTitleFontSize ?? 16,
                 color: leadingTitleColor ?? Colors.black),
+          ),
+          trailing: Text(
+            trailingTitle,
+            style: TextStyle(
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.w600,
+                fontSize: trailingTitleFontSize ?? 16),
           ),
           children: children);
     });
