@@ -1,4 +1,4 @@
-## 1.0.1
+## 1.0.2
 * support customizable font size for
     - leading title
     - trailing title
