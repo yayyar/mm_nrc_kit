@@ -37,7 +37,7 @@ class UIExpansionTile extends StatelessWidget {
             leadingTitle,
             style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: trailingTitleFontSize ?? 16,
+                fontSize: leadingTitleFontSize ?? 16,
                 color: leadingTitleColor ?? Colors.black),
           ),
           trailing: Text(

@@ -1,3 +1,6 @@
+## 1.0.3
+* fix bugs
+
 ## 1.0.2
 * support customizable font size for
     - leading title
